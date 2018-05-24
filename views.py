@@ -1,5 +1,5 @@
 import os
-from flask import Flask, url_for, redirect, render_template, request, json
+from flask import Flask, url_for, redirect, render_template, request, json, session
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -16,7 +16,6 @@ db = SQLAlchemy(app)
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
     contacts = db.relationship('Contact', backref='User', lazy=True)
 
     def __init__(self, username, password):
@@ -62,7 +61,7 @@ def remove_contact():
 # Routing
 # ==================
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
 	return render_template('login.html')
 
@@ -70,8 +69,30 @@ def login():
 def logout():
 	return redirect('login')
 
-@app.route('/index')
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    # If user submitted the form
+    if request.method == 'POST':
+        # Check to see if username exists already
+        check_username = User.query.filter_by(username=request.form['username']).first()
+        if check_username is None:
+            # Create the new user
+            new_user = User(request.form['username'], request.form['password'])
+
+            db.session.add(new_user)
+            db.session.commit()
+            session['logged_in_user'] = new_user
+
+            return redirect('/')
+        else:
+            return redirect('register')
+    return render_template('registration.html')
+
+@app.route('/')
 def index():
+    # If a user isn't logged in, redirect to login page
+    if 'logged_in_user' not in session:
+        return redirect('login')
 	return render_template('index.html')
 
 
