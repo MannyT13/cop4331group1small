@@ -39,19 +39,16 @@ class Contact(db.Model):
 	name = db.Column(db.String(80), unique=False, nullable=False)
 	number = db.Column(db.Integer)
 
+    def __init__(self, contact_owner, name, number):
+        self.contact_owner = contact_owner
+        self.name = name
+        self.number = number
+
 # ==================
 # Helper Functions
 # ==================
 
-def create_user():
-	return
-
-
-def add_contact():
-	return
-
-
-def find_contact():
+def find_contact(name, number):
 	return
 
 def remove_contact():
