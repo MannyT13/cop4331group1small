@@ -1,15 +1,57 @@
-{% extends 'base.html' %}
+{%extends 'base.html' %}
 {% block content %}
-	<div class="content">
-		<div class="login-form">
-			<form action="{{ url_for('login') }}" method="post" class="form-signin">
-		      <h1 class="h3 mb-3 font-weight-normal">Sign in to your Rolodex</h1>
-		      <label for="Username" class="sr-only">Username</label>
-		      <input type="username" id="Username" class="form-control" placeholder="Username" required="" autofocus="">
-		      <label for="Password" class="sr-only">Password</label>
-		      <input type="password" id="Password" class="form-control" placeholder="Password" required="">
-		      <button class="btn btn-lg btn-primary btn-block login-submit" type="submit" >Sign in</button>
-			</form>
-		</div>
-	</div>
+    <!--Nav bar with project name-->
+    <nav class="navbar navbar-dark bg-dark">
+        <span class="navbar-brand mb-0 h1">Contact Manager Login</span>
+    </nav>
+
+    <!--Username and password form-->
+    <div id="formContainer" class="container content">
+        <div class="row justify-content-center">
+            <form action="{{ url_for('login') }}" method="post">
+                <div class="form-group">
+                <label for="inputUsername">Username</label>
+                <input type="name" class="form-control" id="inputUserName" aria-describedby="userNAmeHelp" placeholder="Enter Username" required="" >
+                </div>
+                <div class="form-group">
+                <label for="inputPassword">Password</label>
+                <input type="password" class="form-control" id="inputPassword" placeholder="Password" required="">
+                </div>
+                <button type="submit" class="btn btn-primary btn-sm login-submit">Login</button>
+                <a id="newUserLink" href="{{ url_for('registration') }}" >Create New User</a>
+              
+                <!--if loginError is true than show an alert-->
+                {%if loginError %}
+                <div class="alert alert-dark" role="alert">
+                    Incorrect Username and/or Password!
+                  </div>
+                {% endif %}
+            </form>
+        </div>
+    </div>
 {% endblock %}
+
+
+<!--
+   *****to grab inputs just use request.form('the name of the input grabbing')*****
+
+
+    BACKEND: must worry about two things
+        1. forms
+        2. alerts for logging in(see below)
+        3. deactivation alerts for the newUser.html (see below)
+
+
+
+    1. Form: send each input to login.html
+   2.  after each successful login we should 
+        return render_template("homepage.html")
+
+        if we are unsuceesful in logging in display loginError alert
+        return render_template("login.html", loginError=true)
+
+
+    3. Create new user link:
+    call it like this so the alerts don't show up for usernameTaken and passwordMatch
+        return render_template("newUser.html", userNameTaken=false, passwordMatch=false)
+-->
