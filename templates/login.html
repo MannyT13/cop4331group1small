@@ -18,7 +18,7 @@
                 <input type="password" class="form-control" id="inputPassword" placeholder="Password" required="">
                 </div>
                 <button type="submit" class="btn btn-primary btn-sm login-submit">Login</button>
-                <a id="newUserLink" href="{{ url_for('registration') }}" >Create New User</a>
+                <a id="newUserLink" href="{{ url_for('register') }}" >Create New User</a>
               
                 <!--if loginError is true than show an alert-->
                 {%if loginError %}
