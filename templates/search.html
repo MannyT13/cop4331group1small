@@ -1,0 +1,102 @@
+{%extends 'base.html' %}
+{% block content %} 
+    <!--Nav bar with add contact heading heading -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <span class="navbar-brand mb-0 h1">Homepage</span>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="{{ url_for('homepage') }}">Logout</a>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input name="search" id="searchContact" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button  class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </div>
+    </nav>
+
+
+    <!--Table with search results-->
+    <table class="table table-dark">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Address 1</th>
+            <th scope="col">Address 2</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone</th>
+            <th scope="col">City</th>
+            <th scope="col">Zip</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for results in contacts %}
+          <tr>
+            <th scope="row">{{ loop.index }}</th>
+            <td>{{ results.firstName }}</td>
+            <td>{{ results.lastName }}</td>
+            <td>{{ results.address1 }}</td>
+            <td>{{ results.address2</td>
+            <td>{{ results.email }}</td>
+            <td>{{ results.phone }}</td>
+            <td>{{ results.city }}</td>
+            <td>{{ results.zip }}</td>
+          </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+
+
+              <!--dropdown menu with search results when selected contact is deleted-->
+    <div class="dropdown">
+        <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Select To Delete Contact
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            {% for results in contacts %}
+            <a class="dropdown-item" href="{{ url_for('delete', contactID=results.id) }}">{{ loop.index }} : {{ results.firstName }}</a>
+            {% endfor %}
+        </div>
+      </div>
+{% endblock %}
+
+<!--
+    ******to grab inputs just use request.form('the name of the input grabbing')******
+
+     BACKEND: must worry about three things
+        1. navbar
+            a. logout
+            b. search
+        2. table/ using jinja for loop
+        3. dropdown with results inside of it
+
+   1. Navbar: We must handle three things
+    a. logout ->  logs the user out and sends them back to login.html so,
+         return render_template('login.html')
+
+    b. search -> searches what is in input and then sends the info to search.html
+
+  
+  
+  
+    2. We are using a for loop for the table
+    a. get all results the user searched
+    
+
+    b.send the contacts to the template and let the for loop do the rest of the work
+             return render_template("search.html", contacts=contacts)
+   
+    
+    3. We are useing a for loop for the drop down menu
+        a. get all results and display them using a for loop
+        b. each result in the drop down is a link, we will pass then contactID to delete the contact
+        c send to homepage or refresh the page with the new search results( contact deleted)
+
+ -->
