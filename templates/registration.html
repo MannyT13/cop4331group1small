@@ -8,7 +8,7 @@
 <!--Username and password form-->
 <div id="formContainer" class="container">
     <div class="row justify-content-center">
-        <form action="{{ url_for('register') }}" method="post">
+        <form id="registrationForm" action="{{ url_for('register') }}" method="post">
             <div class="form-group">
                 <label for="inputUsername">Username</label>
                 <input name="username" type="text" class="form-control" id="inputUserName" aria-describedby="userNAmeHelp" placeholder="Enter Username" required="">
@@ -23,18 +23,7 @@
             </div>
             <button type="submit" class="btn btn-primary btn-sm">Create New User</button>
             <!--if username is true than show an alert-->
-            {%if usernameTaken %}
-            <div id="usernameAlert" class="alert alert-dark" role="alert">
-                Username Taken!
-              </div>
-            {% endif %}
-
-            <!--if passwordsMatch is true than show an alert-->
-            {%if passwordMatch %}
-            <div id="passwordAlert"class="alert alert-dark" role="alert">
-                Passwords Don't Match!
-              </div>
-            {% endif %}
+            <div id="alertDiv" style="margin-top: 10px"></div>
         </form>
     </div>
 </div>

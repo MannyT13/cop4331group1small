@@ -2,13 +2,13 @@
 {% block content %}
     <!--Nav bar with project name-->
     <nav class="navbar navbar-dark bg-dark">
-        <span class="navbar-brand mb-0 h1">Contact Manager Login</span>
+        <span class="navbar-brand mb-0 h1">Roledex Login</span>
     </nav>
 
     <!--Username and password form-->
     <div id="formContainer" class="container content">
         <div class="row justify-content-center">
-            <form action="{{ url_for('login') }}" method="post">
+            <form id="loginForm" action="{{ url_for('login') }}" method="post">
                 <div class="form-group">
                 <label for="inputUsername">Username</label>
                 <input type="name" class="form-control" id="inputUserName" aria-describedby="userNAmeHelp" placeholder="Enter Username" required="" >
@@ -17,15 +17,11 @@
                 <label for="inputPassword">Password</label>
                 <input type="password" class="form-control" id="inputPassword" placeholder="Password" required="">
                 </div>
-                <button type="submit" class="btn btn-primary btn-sm login-submit">Login</button>
-                <a id="newUserLink" href="{{ url_for('registration') }}" >Create New User</a>
+                <button id="loginButton" type="submit" class="btn btn-primary btn-sm login-submit">Login</button>
+                <a id="newUserLink" href="{{ url_for('register') }}" >Create New User</a>
               
-                <!--if loginError is true than show an alert-->
-                {%if loginError %}
-                <div class="alert alert-dark" role="alert">
-                    Incorrect Username and/or Password!
-                  </div>
-                {% endif %}
+                <!--if loginError is true than show an alert using jquery/ajax/loginError.html-->
+               <div id="alertDiv" style="margin-top: 10px"></div>
             </form>
         </div>
     </div>
