@@ -38,23 +38,56 @@ class Contact(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	contact_owner = db.Column(db.Integer, db.ForeignKey('user.id'),
 			nullable=False)
-	name = db.Column(db.String(80), unique=False, nullable=False)
-	number = db.Column(db.Integer)
+	first_name = db.Column(db.String(80), unique=False, nullable=False)
+	last_name = db.Column(db.String(80), unique=False, nullable=False)
+	email_address = db.Column(db.String(80), unique=False, nullable=False)
+	street_address1 = db.Column(db.String(80), unique=False, nullable=False)
+	street_address2 = db.Column(db.String(80), unique=False, nullable=False)
+	phone_number = db.Column(db.String(15), unique=False, nullable=False)
+	city = db.Column(db.String(80), unique=False, nullable=False)
+	zip_code = db.Column(db.Integer)
 
-	def __init__(self, contact_owner, name, number):
+	def __init__(self, contact_owner, first_name, last_name, email_address, street_address1, street_address2, phone_number, city, zip_code):
 		self.contact_owner = contact_owner
-		self.name = name
-		self.number = number
+		self.first_name = first_name
+		self.last_name = last_name
+		self.email_address = email_address
+		self.street_address1 = street_address1
+		self.street_address2 = street_address2
+		self.phone_number = phone_number
+		self.city = city
+		self.zip_code = zip_code
+
 
 # ==================
 # Helper Functions
 # ==================
+"""
+def find_contact(name):
+	contacts = Contact.query.filter(Contact.first_name.startswith(name)).all()
+	error_message = "Contact not found"
+	if contacts:
+		error_message = None
+	return (contacts, error_message)
+"""
+def find_contact(name):
+	contact_list = []
+	error_message = "Contact not found"
+	# Search by name
+	contact_list.append(Contact.query.filter(Contact.first_name.find(name) != -1).all())
+	contact_list.append(Contact.query.filter(Contact.last_name.find(name) != -1).all())
+	if not contact_list:
+		error_message = None
+	return (contact_list, error_message)
 
-def find_contact(name, number):
-	return
 
-def remove_contact():
-	return
+def remove_contact(name):
+	contact = Contact.query.filter_by(name=first_name).first()
+	if contact:
+		db.session.delete(contact)
+		db.session.commit()
+		return True
+	return False 
 
 def login_required(f):
     @wraps(f)
