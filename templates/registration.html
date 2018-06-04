@@ -1,60 +1,68 @@
 {% extends 'base.html' %}
 {% block content %}
-<!--Nav bar with new user heading-->
-<nav class="navbar navbar-dark bg-dark">
-    <span class="navbar-brand mb-0 h1">Create New User</span>
-</nav>
-
-<!--Username and password form-->
-<div id="formContainer" class="container">
-    <div class="row justify-content-center">
-        <form id="registrationForm" action="{{ url_for('register') }}" method="post">
-            <div class="form-group">
-                <label for="inputUsername">Username</label>
-                <input name="username" type="text" class="form-control" id="inputUserName" aria-describedby="userNAmeHelp" placeholder="Enter Username" required="">
-            </div>
-            <div class="form-group">
-                <label for="inputPassword">Password</label>
-                <input name="password" type="password" class="form-control" id="inputPassword" placeholder="Password" required="">
-            </div>
-            <div class="form-group">
-                <label for="inputPassword">Confirm Password</label>
-                <input name="confirmPassword" type="password" class="form-control" id="confirmInputPassword" placeholder="Confirm Password" required="">
-            </div>
-            <button type="submit" class="btn btn-primary btn-sm">Create New User</button>
-            <!--if username is true than show an alert-->
-            <div id="alertDiv" style="margin-top: 10px"></div>
-        </form>
+    <!--Nav bar with new user heading-->
+    <nav class="navbar navbar-dark bg-dark">
+        <span class="navbar-brand mb-0 h1">Create New User</span>
+    </nav>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class=flashes>
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    <!--Username and password form-->
+    <div id="formContainer" class="container">
+        <div class="row justify-content-center">
+            <form id="registrationForm" action="{{ url_for('register') }}" method="post">
+                <div class="form-group">
+                    <label for="inputUsername">Username</label>
+                    <input name="username" type="text" class="form-control" id="inputUsername" aria-describedby="userNAmeHelp" placeholder="Enter Username" required="">
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword">Password</label>
+                    <input name="password" type="password" class="form-control" id="inputPassword" placeholder="Password" required="">
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword">Confirm Password</label>
+                    <input name="confirmPassword" type="password" class="form-control" id="confirmInputPassword" placeholder="Confirm Password" required="">
+                </div>
+                <button type="submit" class="btn btn-primary btn-sm">Create New User</button>
+                <!--if username is true than show an alert-->
+                <div id="alertDiv" style="margin-top: 10px"></div>
+            </form>
+        </div>
     </div>
-</div>
-{% endblock %}
+    {% endblock %}
 
 
-<!--
-    *****to grab inputs just use request.form('the name of the input grabbing')*****
+    <!--
+        *****to grab inputs just use request.form('the name of the input grabbing')*****
 
 
-    BACKEND: must worry about two things
-        1. forms
-        2. alerts for user creation (see below)
+        BACKEND: must worry about two things
+            1. forms
+            2. alerts for user creation (see below)
 
 
-    1. Form: send each input to newUser.html
-    after each new user we should 
-        return render_template("homepage.html")
+        1. Form: send each input to newUser.html
+        after each new user we should 
+            return render_template("homepage.html")
 
-    
-    
-    2.    If passwords don't match 
-    return render_template("newUser.html", passwordMatch=true)
-    
+        
+        
+        2.    If passwords don't match 
+        return render_template("newUser.html", passwordMatch=true)
+        
 
-    If pass username is take 
-    return render_template("newUser.html", usernameTaken=true)
+        If pass username is take 
+        return render_template("newUser.html", usernameTaken=true)
 
 
-    If both
-    return render_template("newUser.html", usernameTaken=true, passwordMatch=true)
+        If both
+        return render_template("newUser.html", usernameTaken=true, passwordMatch=true)
 
- 
--->
+     
+    -->
