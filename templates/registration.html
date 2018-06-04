@@ -4,15 +4,7 @@
     <nav class="navbar navbar-dark bg-dark">
         <span class="navbar-brand mb-0 h1">Create New User</span>
     </nav>
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <ul class=flashes>
-        {% for message in messages %}
-          <li>{{ message }}</li>
-        {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
+   
     <!--Username and password form-->
     <div id="formContainer" class="container">
         <div class="row justify-content-center">
@@ -30,6 +22,18 @@
                     <input name="confirmPassword" type="password" class="form-control" id="confirmInputPassword" placeholder="Confirm Password" required="">
                 </div>
                 <button type="submit" class="btn btn-primary btn-sm">Create New User</button>
+                 <!--Flashed messages -->
+                {% with messages = get_flashed_messages() %}
+                  {% if messages %}
+                     <ul class="flashes alert alert-dark" role="alert">
+                     {% for message in messages %}
+                         <li>{{ message }}</li>
+                     {% endfor %}
+                     </ul>
+                  {% endif %}
+                 {% endwith %}
+               
+                
                 <!--if username is true than show an alert-->
                 <div id="alertDiv" style="margin-top: 10px"></div>
             </form>
