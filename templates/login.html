@@ -4,15 +4,7 @@
     <nav class="navbar navbar-dark bg-dark">
         <span class="navbar-brand mb-0 h1">Roledex Login</span>
     </nav>
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <ul class=flashes>
-        {% for message in messages %}
-          <li>{{ message }}</li>
-        {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
+    
     <!--Username and password form-->
     <div id="formContainer" class="container content">
         <div class="row justify-content-center">
@@ -27,7 +19,18 @@
                 </div>
                 <button id="loginButton" type="submit" class="btn btn-primary btn-sm login-submit">Login</button>
                 <a id="newUserLink" href="{{ url_for('register') }}" >Create New User</a>
-              
+              	
+		<!-- flashed messages-->
+		{% with messages = get_flashed_messages() %}
+     		 {% if messages %}
+      		 <ul class="flashes alert alert-dark" role="alert">
+       		{% for message in messages %}
+         		<li>{{ message }}</li>
+       		 {% endfor %}
+        	</ul>
+     		{% endif %}
+  		{% endwith %}
+		    
                 <!--if loginError is true than show an alert using jquery/ajax/loginError.html-->
                <div id="alertDiv" style="margin-top: 10px"></div>
             </form>
