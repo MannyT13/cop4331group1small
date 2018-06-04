@@ -1,5 +1,5 @@
 import os
-from flask import Flask, url_for, redirect, render_template, request, json, session
+from flask import Flask, url_for, redirect, render_template, request, json, session, flash
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -64,6 +64,7 @@ def login():
 
 @app.route('/logout')
 def logout():
+	session.pop('logged_in_user')
 	return redirect('login')
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -78,10 +79,11 @@ def register():
 
 			db.session.add(new_user)
 			db.session.commit()
-			session['logged_in_user'] = new_user
+			session['logged_in_user'] = new_user.id
 
 			return redirect('/')
 		else:
+			flash('Username already exists')
 			return redirect('register')
 	return render_template('registration.html')
 
