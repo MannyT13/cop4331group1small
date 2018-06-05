@@ -104,7 +104,6 @@ def login_required(f):
 @app.route('/add_contact', methods=['GET', 'POST'])
 def add_contact():
 	if request.method == 'POST':
-		print request.form
 		new_contact = Contact(session['logged_in_user'],request.form['first_name'],
 							  request.form['last_name'],request.form['email'],
 							  request.form['address1'],request.form['address2'],
@@ -156,8 +155,7 @@ def register():
 @app.route('/')
 @login_required
 def index():
-	contacts = Contact.query.filter_by(contact_owner=['logged_in_user']).all()
-	print contacts
+	contacts = Contact.query.filter_by(contact_owner=int(session['logged_in_user'])).all()
 	return render_template('homepage.html',
 							contacts=contacts)
 
