@@ -58,6 +58,20 @@ class Contact(db.Model):
 		self.city = city
 		self.zip_code = zip_code
 
+	def serialize(self):
+		return {
+				'contact_owner': str(self.contact_owner),
+				'first_name': str(self.first_name),
+				'last_name': str(self.last_name),
+				'email': str(self.email_address),
+				'address1': str(self.street_address1),
+				'address2': str(self.street_address2),
+				'phone' : str(self.phone_number),
+				'city': str(self.city),
+				'zip': str(self.zip_code)
+			}
+
+
 
 # ==================
 # Helper Functions
@@ -111,7 +125,7 @@ def add_contact():
 							  request.form['zipcode'])
 		db.session.add(new_contact)
 		db.session.commit()
-	return jsonify('asdf')
+	return jsonify(new_contact.serialize())
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
