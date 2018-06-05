@@ -39,17 +39,23 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Hello</td>
-              <td>World</td>
-              <td>Lorem</td>
-              <td>ipsum</td>
-              <td>dolor</td>
-              <td>sit</td>
-              <td>amet</td>
-              <td>consectetur</td>
-            </tr>
+            {% for contact in contacts %}
+              <tr>
+                <th scope="row">{{loop.index}}</th>
+                <td>{{contact.first_name}}</td>
+                <td>{{contact.last_name}}</td>
+                <td>{{contact.street_address1}}</td>
+                <td>{{contact.street_address2}}</td>
+                <td>{{contact.email_address}}</td>
+                <td>{{contact.phone_number}}</td>
+                <td>{{contact.city}}</td>
+                <td>{{contact.zip_code}}</td>
+                <td> 
+                  <button type="button" class="btn btn-default btn-sm">
+                      <span class="glyphicon glyphicon-remove" href="#"></span> Remove 
+                  </button>
+              </tr>
+              {% endfor %}
           </tbody>
         </table>
       </div>
