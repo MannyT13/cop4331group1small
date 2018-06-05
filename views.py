@@ -42,7 +42,7 @@ class Contact(db.Model):
 	last_name = db.Column(db.String(80), unique=False, nullable=False)
 	email_address = db.Column(db.String(80), unique=False, nullable=False)
 	street_address1 = db.Column(db.String(80), unique=False, nullable=False)
-	street_address2 = db.Column(db.String(80), unique=False, nullable=False)
+	street_address2 = db.Column(db.String(80), unique=False, nullable=True)
 	phone_number = db.Column(db.String(15), unique=False, nullable=False)
 	city = db.Column(db.String(80), unique=False, nullable=False)
 	zip_code = db.Column(db.Integer)
@@ -103,7 +103,15 @@ def login_required(f):
 
 @app.route('/add_contact', methods=['GET', 'POST'])
 def add_contact():
-	print request.args.__dict__
+	if request.method == 'POST':
+		print request.form
+		new_contact = Contact(session['logged_in_user'],request.form['first_name'],
+							  request.form['last_name'],request.form['email'],
+							  request.form['address1'],request.form['address2'],
+							  request.form['phone'],request.form['city'],
+							  request.form['zipcode'])
+		db.session.add(new_contact)
+		db.session.commit()
 	return jsonify('asdf')
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -148,7 +156,8 @@ def register():
 @app.route('/')
 @login_required
 def index():
-	contacts = []
+	contacts = Contact.query.filter_by(contact_owner=['logged_in_user']).all()
+	print contacts
 	return render_template('homepage.html',
 							contacts=contacts)
 

@@ -9,10 +9,10 @@
     
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          </li class="nav-item active"> 
+          </li class="nav-item"> 
             <a class="nav-link" data-toggle="modal" data-target="#add_contact">Add Contact</a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
           </li>
         </ul>
@@ -64,19 +64,19 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="{{ url_for('add_contact') }}" method="post">
+        <form id="add_contact_form" action="{{ url_for('add_contact') }}" method="post">
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="inputFirstName">First Name</label>
-                    <input name="firstName" type="name" class="form-control" id="firstName" placeholder="First Name" required="">
+                    <input name="first_name" type="name" class="form-control" id="firstName" placeholder="First Name" required="">
                   </div>
                   <div class="form-group col-md-6">
                     <label for="inputLastName">Last Name</label>
-                    <input name="lastName" type="name" class="form-control" id="lastName" placeholder="Last Name" required="">
+                    <input name="last_name" type="name" class="form-control" id="lastName" placeholder="Last Name" required="">
                   </div>
                 </div>
                 <div class="form-group">
-                    <label for="inputEmail">Email</label>
+                    <label for="email">Email</label>
                     <input name="email"type="email" class="form-control" id="email" placeholder="Email">
                   </div>
                 <div class="form-group">
