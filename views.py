@@ -1,5 +1,5 @@
 import os
-from flask import Flask, url_for, redirect, render_template, request, json, session, flash
+from flask import Flask, url_for, redirect, render_template, request, json, session, flash, jsonify
 from functools import wraps
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -100,6 +100,11 @@ def login_required(f):
 # ==================
 # Routing
 # ==================
+
+@app.route('/add_contact', methods=['GET', 'POST'])
+def add_contact():
+	print request.args.__dict__
+	return jsonify('asdf')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
