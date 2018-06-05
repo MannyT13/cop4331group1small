@@ -45,18 +45,18 @@ class Contact(db.Model):
 	street_address2 = db.Column(db.String(80), unique=False, nullable=False)
 	phone_number = db.Column(db.String(15), unique=False, nullable=False)
 	city = db.Column(db.String(80), unique=False, nullable=False)
-	zip_code = db.Column(db.Integer)
+	zip_code = db.Column(db.String(10), unique=False, nullable=False)
 
 	def __init__(self, contact_owner, first_name, last_name, email_address, street_address1, street_address2, phone_number, city, zip_code):
 		self.contact_owner = contact_owner
-		self.first_name = first_name
-		self.last_name = last_name
-		self.email_address = email_address
-		self.street_address1 = street_address1
-		self.street_address2 = street_address2
-		self.phone_number = phone_number
-		self.city = city
-		self.zip_code = zip_code
+		self.first_name = first_name if first_name else ""
+		self.last_name = last_name if last_name else ""
+		self.email_address = email_address if email_address else ""
+		self.street_address1 = street_address1 if street_address1 else ""
+		self.street_address2 = street_address2 if street_address2 else ""
+		self.phone_number = phone_number if phone_number else ""
+		self.city = city if city else ""
+		self.zip_code = zip_code if zip_code else ""
 
 
 # ==================
@@ -143,6 +143,17 @@ def register():
 @app.route('/')
 @login_required
 def index():
-	return render_template('index.html')
+	contacts = []
+	return render_template('homepage.html',
+							contacts=contacts)
+'''
+@app.route('/add_contact', methods=['GET', 'POST'])
+@login_required
+def add_contact():
+	if request.method == 'POST':
+		new_contact = Contact(request.form['contact_owner'], request.form['first_name'], request.form['last_name'], request.form['email_address'], request.form['street_address1'], request.form['street_address2'], request.form['phone_number'], request.form['city'], request.form['zip_code'])
 
-
+		db.session.add(new_contact)
+		db.session.commit()
+    return (data in json using jsonify library)
+'''
