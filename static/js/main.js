@@ -43,8 +43,12 @@ $(document).ready(function(){
             url:"/add_contact",
             type: "POST",
             data: $('#add_contact_form').serialize(),
-            success: function(resp){
-                console.log(resp);
+            success: function(data){
+                console.log(data);
+                var new_contact = '<tr><td>' + ($('tbody').children().length + 1) + '</td><td>' + data.first_name + '</td><td>\
+                ' + data.last_name + '</td><td>' + data.address1 + '</td><td>' + data.address2 + '</td><td>\
+                ' + data.email + '</td><td>' + data.phone + '</td><td>' + data.city + '</td></td>' + data.zip + '</td></tr>';
+                $('tbody').append(new_contact);
             }
         });
     });
