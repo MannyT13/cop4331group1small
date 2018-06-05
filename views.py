@@ -1,5 +1,5 @@
 import os
-from flask import Flask, url_for, redirect, render_template, request, json, session, flash
+from flask import Flask, url_for, redirect, render_template, request, json, session, flash, jsonify
 from functools import wraps
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -42,7 +42,7 @@ class Contact(db.Model):
 	last_name = db.Column(db.String(80), unique=False, nullable=False)
 	email_address = db.Column(db.String(80), unique=False, nullable=False)
 	street_address1 = db.Column(db.String(80), unique=False, nullable=False)
-	street_address2 = db.Column(db.String(80), unique=False, nullable=False)
+	street_address2 = db.Column(db.String(80), unique=False, nullable=True)
 	phone_number = db.Column(db.String(15), unique=False, nullable=False)
 	city = db.Column(db.String(80), unique=False, nullable=False)
 	zip_code = db.Column(db.Integer)
@@ -57,6 +57,20 @@ class Contact(db.Model):
 		self.phone_number = phone_number
 		self.city = city
 		self.zip_code = zip_code
+
+	def serialize(self):
+		return {
+				'contact_owner': str(self.contact_owner),
+				'first_name': str(self.first_name),
+				'last_name': str(self.last_name),
+				'email': str(self.email_address),
+				'address1': str(self.street_address1),
+				'address2': str(self.street_address2),
+				'phone' : str(self.phone_number),
+				'city': str(self.city),
+				'zip': str(self.zip_code)
+			}
+
 
 
 # ==================
@@ -101,6 +115,18 @@ def login_required(f):
 # Routing
 # ==================
 
+@app.route('/add_contact', methods=['GET', 'POST'])
+def add_contact():
+	if request.method == 'POST':
+		new_contact = Contact(session['logged_in_user'],request.form['first_name'],
+							  request.form['last_name'],request.form['email'],
+							  request.form['address1'],request.form['address2'],
+							  request.form['phone'],request.form['city'],
+							  request.form['zipcode'])
+		db.session.add(new_contact)
+		db.session.commit()
+	return jsonify(new_contact.serialize())
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 	if request.method == 'POST':
@@ -143,7 +169,7 @@ def register():
 @app.route('/')
 @login_required
 def index():
-	contacts = []
+	contacts = Contact.query.filter_by(contact_owner=int(session['logged_in_user'])).all()
 	return render_template('homepage.html',
 							contacts=contacts)
 

@@ -29,10 +29,14 @@ html, body{
 
 .table-wrapper {
 	margin: 0 auto;
-	width: 80%;
+	width: 90%;
 }
 
 table {
 	margin-top: 5%;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.nav-link {
+	cursor: pointer;
 }

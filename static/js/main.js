@@ -1,7 +1,4 @@
-$(document).ready(function(){
-    console.log("in document");
-    
-    
+$(document).ready(function(){    
     //for the login error: if user has incorrect username of password
     $('#loginForm').on('submit', function(event){
         
@@ -41,8 +38,20 @@ $(document).ready(function(){
     });
 
 
+    $('#add_contact_submit').on('click', function(event){
+        $.ajax({
+            url:"/add_contact",
+            type: "POST",
+            data: $('#add_contact_form').serialize(),
+            success: function(data){
+                console.log(data);
+                var new_contact = '<tr><td>' + ($('tbody').children().length + 1) + '</td><td>' + data.first_name + '</td><td>\
+                ' + data.last_name + '</td><td>' + data.address1 + '</td><td>' + data.address2 + '</td><td>\
+                ' + data.email + '</td><td>' + data.phone + '</td><td>' + data.city + '</td></td>' + data.zip + '</td></tr>';
+                $('tbody').append(new_contact);
+            }
+        });
+    });
+
+
 });
-
-
-console.log("test")
-

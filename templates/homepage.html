@@ -9,10 +9,10 @@
     
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          </li class="nav-item active"> 
-          <a class="nav-link" href="#">Add Contact</a>
-        </li>
-          <li class="nav-item active">
+          </li class="nav-item"> 
+            <a class="nav-link" data-toggle="modal" data-target="#add_contact">Add Contact</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
           </li>
         </ul>
@@ -22,7 +22,6 @@
         </form>
       </div>
     </nav>
-
 
     <div class="table-wrapper">
       <table class="table table-dark rounded">
@@ -40,22 +39,83 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Hello</td>
-              <td>World</td>
-              <td>Lorem</td>
-              <td>ipsum</td>
-              <td>dolor</td>
-              <td>sit</td>
-              <td>amet</td>
-              <td>consectetur</td>
-            </tr>
+            {% for contact in contacts %}
+              <tr>
+                <th scope="row">{{loop.index}}</th>
+                <td>{{contact.first_name}}</td>
+                <td>{{contact.last_name}}</td>
+                <td>{{contact.street_address1}}</td>
+                <td>{{contact.street_address2}}</td>
+                <td>{{contact.email_address}}</td>
+                <td>{{contact.phone_number}}</td>
+                <td>{{contact.city}}</td>
+                <td>{{contact.zip_code}}</td>
+                <td> 
+                  <button type="button" class="btn btn-default btn-sm">
+                      <span class="glyphicon glyphicon-remove" href="#"></span> Remove 
+                  </button>
+              </tr>
+              {% endfor %}
           </tbody>
         </table>
       </div>
-{% endblock %}
 
+<div id="add_contact" class="modal hide" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="add_contact_form" action="{{ url_for('add_contact') }}" method="post">
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="inputFirstName">First Name</label>
+                    <input name="first_name" type="name" class="form-control" id="firstName" placeholder="First Name" required="">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputLastName">Last Name</label>
+                    <input name="last_name" type="name" class="form-control" id="lastName" placeholder="Last Name" required="">
+                  </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input name="email"type="email" class="form-control" id="email" placeholder="Email">
+                  </div>
+                <div class="form-group">
+                  <label for="inputAddress">Address</label>
+                  <input name= "address1" type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+                </div>
+                <div class="form-group">
+                  <label for="inputAddress2">Address 2</label>
+                  <input name="address2" type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+                </div>
+                <div class="form-group">
+                    <label for="inputPhone">Phone Number</label>
+                    <input name="phone" type="text" class="form-control" id="inputPhone" placeholder="XXX-XXX-XXXX">
+                  </div>
+                <div class="form-row">
+                  <div class="form-group col-md-9">
+                    <label for="inputCity">City</label>
+                    <input name="city" type="text" class="form-control" id="inputCity">
+                  </div>
+                  
+                  <div class="form-group col-md-3">
+                    <label for="inputZip">Zip</label>
+                    <input name="zipcode" type="text" class="form-control" id="inputZip">
+                  </div>
+                </div>
+                <button id="add_contact_submit" type="button" data-dismiss="modal" class="btn btn-primary">Add Contact</button>
+                <button type="button" class="btn btn-alert" data-dismiss="modal">Cancel</button>
+              </form>
+         </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
 <!--
     ******to grab inputs just use request.form('the name of the input grabbing')******
 
