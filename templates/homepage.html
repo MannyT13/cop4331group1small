@@ -10,7 +10,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           </li class="nav-item active"> 
-          <a class="nav-link" href="{{ url_for('addContact') }}">Add Contact</a>
+          <a class="nav-link" href="#">Add Contact</a>
         </li>
           <li class="nav-item active">
             <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
@@ -24,37 +24,36 @@
     </nav>
 
 
-
-    <table class="table table-dark">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Address 1</th>
-            <th scope="col">Address 2</th>
-            <th scope="col">Email</th>
-            <th scope="col">Phone</th>
-            <th scope="col">City</th>
-            <th scope="col">Zip</th>
-          </tr>
-        </thead>
-        <tbody>
-            {% for contact in contacts %}
-          <tr>
-            <th scope="row">{{ loop.index }}</th>
-            <td>{{ contact.firstName }}</td>
-            <td>{{ contact.lastName }}</td>
-            <td>{{ contact.address1 }}</td>
-            <td>{{ contact.address2</td>
-            <td>{{ contact.email }}</td>
-            <td>{{ contact.phone }}</td>
-            <td>{{ contact.city }}</td>
-            <td>{{ contact.zip }}</td>
-          </tr>
-            {% endfor %}
-        </tbody>
-      </table>
+    <div class="table-wrapper">
+      <table class="table table-dark rounded">
+          <thead class="rounded">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">First</th>
+              <th scope="col">Last</th>
+              <th scope="col">Address 1</th>
+              <th scope="col">Address 2</th>
+              <th scope="col">Email</th>
+              <th scope="col">Phone</th>
+              <th scope="col">City</th>
+              <th scope="col">Zip</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Hello</td>
+              <td>World</td>
+              <td>Lorem</td>
+              <td>ipsum</td>
+              <td>dolor</td>
+              <td>sit</td>
+              <td>amet</td>
+              <td>consectetur</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 {% endblock %}
 
 <!--

@@ -143,6 +143,8 @@ def register():
 @app.route('/')
 @login_required
 def index():
-	return render_template('index.html')
+	contacts = []
+	return render_template('homepage.html',
+							contacts=contacts)
 
 
