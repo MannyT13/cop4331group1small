@@ -47,11 +47,47 @@ $(document).ready(function(){
                 console.log(data);
                 var new_contact = '<tr><td>' + ($('tbody').children().length + 1) + '</td><td>' + data.first_name + '</td><td>\
                 ' + data.last_name + '</td><td>' + data.address1 + '</td><td>' + data.address2 + '</td><td>\
-                ' + data.email + '</td><td>' + data.phone + '</td><td>' + data.city + '</td></td>' + data.zip + '</td></tr>';
+                ' + data.email + '</td><td>' + data.phone + '</td><td>' + data.city + '</td></td>' + data.zip + '</td></tr>\
+                ' + data.id + '</td></td>';
                 $('tbody').append(new_contact);
             }
         });
     });
+
+    $('.remove-button').on('click', function(event){
+        var obj = $(this);
+        $.ajax({
+            url:"/delete_contact",
+            type: "POST",
+            contentType: 'application/json',
+            dataType : 'json',
+            data: JSON.stringify($(this).attr('data-button')),
+            success: function(data){
+                $(obj).closest("tr").remove();
+            }
+        });
+    });
+
+
+    $("#search").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $.ajax({
+            type:"POST",
+            success: function(){
+                $("tr").filter(function() 
+                {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                
+        });
+    }
+      });
+    });
+
+
+
+
+
+
 
 
 });

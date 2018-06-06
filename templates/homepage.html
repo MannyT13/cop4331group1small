@@ -18,7 +18,7 @@
         </ul>
         <form class="form-inline my-2 my-lg-0">
           <input name="search" id="searchContact" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button  class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+          <button  id= "search_button" class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
         </form>
       </div>
     </nav>
@@ -39,6 +39,7 @@
             </tr>
           </thead>
           <tbody>
+            <input type="hidden" value="@item.Id" id="groupId"/>
             {% for contact in contacts %}
               <tr>
                 <th scope="row">{{loop.index}}</th>
@@ -51,7 +52,7 @@
                 <td>{{contact.city}}</td>
                 <td>{{contact.zip_code}}</td>
                 <td> 
-                  <button type="button" class="btn btn-default btn-sm">
+                  <button class="remove-button" type="button" class="btn btn-default btn-sm" data-button="{{contact.id}}">
                       <span class="glyphicon glyphicon-remove" href="#"></span> Remove 
                   </button>
               </tr>
