@@ -40,8 +40,8 @@
           </thead>
           <tbody>
             <input type="hidden" value="@item.Id" id="groupId"/>
-            {% for contact in contacts %}
-              <tr>
+            {% for contact in contacts %}           
+              <tr class="my-data" first="{{contact.first_name}}" last="{{contact.last_name}}"> 
                 <th scope="row">{{loop.index}}</th>
                 <td>{{contact.first_name}}</td>
                 <td>{{contact.last_name}}</td>
