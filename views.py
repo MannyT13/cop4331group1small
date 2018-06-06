@@ -129,7 +129,6 @@ def add_contact():
 							  request.form['zipcode'])
 		db.session.add(new_contact)
 		db.session.commit()
-		db.session.flush()
 
 	return jsonify(new_contact.serialize())
 
