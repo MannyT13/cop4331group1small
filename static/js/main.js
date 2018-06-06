@@ -47,8 +47,22 @@ $(document).ready(function(){
                 console.log(data);
                 var new_contact = '<tr><td>' + ($('tbody').children().length + 1) + '</td><td>' + data.first_name + '</td><td>\
                 ' + data.last_name + '</td><td>' + data.address1 + '</td><td>' + data.address2 + '</td><td>\
-                ' + data.email + '</td><td>' + data.phone + '</td><td>' + data.city + '</td></td>' + data.zip + '</td></tr>';
+                ' + data.email + '</td><td>' + data.phone + '</td><td>' + data.city + '</td></td>' + data.zip + '</td></tr>\
+                ' + data.id + '</td></td>';
                 $('tbody').append(new_contact);
+            }
+        });
+    });
+
+    $('#delete_contact_button').on('click', function(event){
+        $.ajax({
+            url:"/delete_contact",
+            type: "POST",
+            contentType: 'application/json',
+            dataType : 'json',
+            data: JSON.stringify($(this).attr('data-button')),
+            success: function(data){
+                $('tbody').remove()
             }
         });
     });

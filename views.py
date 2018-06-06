@@ -60,6 +60,7 @@ class Contact(db.Model):
 
 	def serialize(self):
 		return {
+				'id' : str(self.id),
 				'contact_owner': str(self.contact_owner),
 				'first_name': str(self.first_name),
 				'last_name': str(self.last_name),
@@ -117,6 +118,7 @@ def login_required(f):
 
 @app.route('/add_contact', methods=['GET', 'POST'])
 def add_contact():
+	print(request.headers)
 	if request.method == 'POST':
 		new_contact = Contact(session['logged_in_user'],request.form['first_name'],
 							  request.form['last_name'],request.form['email'],
@@ -125,7 +127,18 @@ def add_contact():
 							  request.form['zipcode'])
 		db.session.add(new_contact)
 		db.session.commit()
+		db.session.flush()
+
 	return jsonify(new_contact.serialize())
+
+@app.route('/delete_contact', methods=['GET', 'POST'])
+def delete_contact():
+
+	data =request.get_json()
+	
+	print(data)
+
+	return d
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -170,7 +183,6 @@ def register():
 @login_required
 def index():
 	contacts = Contact.query.filter_by(contact_owner=int(session['logged_in_user'])).all()
-	return render_template('homepage.html',
-							contacts=contacts)
+	return render_template('homepage.html',contacts=contacts)
 
 
