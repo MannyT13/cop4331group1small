@@ -70,5 +70,16 @@ $(document).ready(function(){
         });
     });
 
+    $('#lookup').on('click', function(event){
+        console.log($('#searchContact').value)
+        var contactArr = document.getElementsByClassName('my-data');
+        var size = contactArr.length;
+        for(var i=size-1; i >= 0; i--){
+            var first =contactArr[i].getAttribute("first");
+            var last =contactArr[i].getAttribute("last");
+            if (first == "Camilo") contactArr[i].remove()
+        }
+    });
+
 
 });
