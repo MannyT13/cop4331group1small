@@ -55,15 +55,15 @@ $(document).ready(function(){
     });
 
     $('.remove-button').on('click', function(event){
-        $(this).closest("tr").remove();
+        var obj = $(this);
         $.ajax({
             url:"/delete_contact",
             type: "POST",
             contentType: 'application/json',
             dataType : 'json',
             data: JSON.stringify($(this).attr('data-button')),
-            success: function(){
-                $(this).closest("tr").remove();
+            success: function(data){
+                $(obj).closest("tr").remove();
             }
         });
     });

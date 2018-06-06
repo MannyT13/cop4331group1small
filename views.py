@@ -137,17 +137,15 @@ def add_contact():
 def delete_contact():
 
 	data =int(request.get_json())
-	print(type(data))
 	cnt = db.session.query(Contact).filter(Contact.id == data).first()
-	print(cnt)
 	
 	if cnt:
 		if request.method == 'POST':
 			db.session.delete(cnt)
 			db.session.commit()
 
-	return render_template('homepage.html')
-	
+	return jsonify(data=data)
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 	if request.method == 'POST':
