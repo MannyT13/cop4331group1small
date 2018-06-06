@@ -47,8 +47,10 @@ $(document).ready(function(){
                 console.log(data);
                 var new_contact = '<tr><td>' + ($('tbody').children().length + 1) + '</td><td>' + data.first_name + '</td><td>\
                 ' + data.last_name + '</td><td>' + data.address1 + '</td><td>' + data.address2 + '</td><td>\
-                ' + data.email + '</td><td>' + data.phone + '</td><td>' + data.city + '</td></td>' + data.zip + '</td></tr>\
-                ' + data.id + '</td></td>';
+				' + data.email + '</td><td>' + data.phone + '</td><td>' + data.city + '</td></td>\
+				' + data.zip + '</td><button class="remove-button" type="button" class="btn btn-default btn-sm" data-button="\
+				' + data.id + '"><span class="glyphicon glyphicon-remove" href="#"></span> Remove </button></tr>\
+				' + data.id + '</td></td>';
                 $('tbody').append(new_contact);
             }
         });
