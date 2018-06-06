@@ -77,7 +77,8 @@ $(document).ready(function(){
         for(var i=size-1; i >= 0; i--){
             var first =contactArr[i].getAttribute("first");
             var last =contactArr[i].getAttribute("last");
-            if (first == "Camilo") contactArr[i].remove()
+            var input = $('#searchContact').val()
+            if (first != input) contactArr[i].remove()
         }
     });
 
