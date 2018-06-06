@@ -39,6 +39,7 @@
             </tr>
           </thead>
           <tbody>
+            <input type="hidden" value="@item.Id" id="groupId"/>
             {% for contact in contacts %}
               <tr>
                 <th scope="row">{{loop.index}}</th>
@@ -51,7 +52,7 @@
                 <td>{{contact.city}}</td>
                 <td>{{contact.zip_code}}</td>
                 <td> 
-                  <button id="delete_contact_button" type="button" class="btn btn-default btn-sm" data-button="{{contact.id}}">
+                  <button class="remove-button" type="button" class="btn btn-default btn-sm" data-button="{{contact.id}}">
                       <span class="glyphicon glyphicon-remove" href="#"></span> Remove 
                   </button>
               </tr>

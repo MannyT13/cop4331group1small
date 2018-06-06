@@ -54,15 +54,16 @@ $(document).ready(function(){
         });
     });
 
-    $('#delete_contact_button').on('click', function(event){
+    $('.remove-button').on('click', function(event){
+        $(this).closest("tr").remove();
         $.ajax({
             url:"/delete_contact",
             type: "POST",
             contentType: 'application/json',
             dataType : 'json',
             data: JSON.stringify($(this).attr('data-button')),
-            success: function(data){
-                $('tbody').remove()
+            success: function(){
+                $(this).closest("tr").remove();
             }
         });
     });

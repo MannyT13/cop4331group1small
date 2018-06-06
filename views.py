@@ -112,13 +112,15 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
+
+
+
 # ==================
 # Routing
 # ==================
 
 @app.route('/add_contact', methods=['GET', 'POST'])
 def add_contact():
-	print(request.headers)
 	if request.method == 'POST':
 		new_contact = Contact(session['logged_in_user'],request.form['first_name'],
 							  request.form['last_name'],request.form['email'],
@@ -134,12 +136,18 @@ def add_contact():
 @app.route('/delete_contact', methods=['GET', 'POST'])
 def delete_contact():
 
-	data =request.get_json()
+	data =int(request.get_json())
+	print(type(data))
+	cnt = db.session.query(Contact).filter(Contact.id == data).first()
+	print(cnt)
 	
-	print(data)
+	if cnt:
+		if request.method == 'POST':
+			db.session.delete(cnt)
+			db.session.commit()
 
-	return d
-
+	return render_template('homepage.html')
+	
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 	if request.method == 'POST':
