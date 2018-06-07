@@ -76,8 +76,8 @@ $(document).ready(function(){
             first = this.getAttribute('first').toLowerCase();
             last = this.getAttribute('last').toLowerCase();
             
-            str = first + last;
-            if(first.indexOf(input) == -1) $(this).hide()
+            str = first + " " + last;
+            if(str.indexOf(input) == -1) $(this).hide()
             else $(this).show()
 
         });
