@@ -37,7 +37,7 @@
           <tbody>
             <input type="hidden" value="@item.Id" id="groupId"/>
             {% for contact in contacts %}           
-              <tr class="my-data" first="{{contact.first_name}}" last="{{contact.last_name}}"> 
+              <tr class="my-data" first="{{contact.first_name}}" last="{{contact.last_name}}" data-id="{{contact.id}}"> 
                 <td class="contact-info" data-toggle="modal" data-target="#contact_info{{contact.id}}">{{contact.first_name}}</td>
                 <td class="contact-info" data-toggle="modal" data-target="#contact_info{{contact.id}}">{{contact.last_name}}</td>
                 <td class="contact-info" data-toggle="modal" data-target="#contact_info{{contact.id}}">{{contact.phone_number}}</td>

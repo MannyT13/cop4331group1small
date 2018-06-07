@@ -21,13 +21,11 @@ $(document).ready(function(){
             type: "POST",
             data: $(this).parent().serialize(),
             success: function(data){
-                console.log('successful update')
-                // var new_contact = '<tr><td>' + ($('tbody').children().length) + '</td><td>' + data.first_name + '</td><td>\
-                // ' + data.last_name + '</td><td>' + data.address1 + '</td><td>' + data.address2 + '</td><td>\
-                // ' + data.email + '</td><td>' + data.phone + '</td><td>' + data.city + '</td><td>\
-                // ' + data.zip + '</td><td><button class="remove-button" type="button" class="btn btn-default btn-sm" data-button="\
-                // ' + data.id + '"><span class="glyphicon glyphicon-remove" href="#"></span> Remove </button></td></tr>';
-                // $('tbody').append(new_contact);
+                var tr = 'tr[data-id="' + data.id + '"';
+                $(tr).children().eq(0).text(data.first_name);
+                $(tr).children().eq(1).text(data.last_name);
+                $(tr).children().eq(2).text(data.phone);
+                $(tr).children().eq(3).text(data.email);
             }
         });
     });
