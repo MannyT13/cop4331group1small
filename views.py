@@ -3,12 +3,15 @@ from flask import Flask, url_for, redirect, render_template, request, json, sess
 from functools import wraps
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_sslify import SSLify
 
 
 app = Flask(__name__)
 app.config.from_object('config')
 db = SQLAlchemy(app)
 
+if not app.debug:
+	sslify = SSLify(app)
 
 # ==================
 # Models
