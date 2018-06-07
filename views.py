@@ -145,17 +145,17 @@ def update_contact():
 		contact.city = request.form['city']
 		contact.zipcode = request.form['zipcode']
 		db.session.commit()
-	return jsonify('success')
+	return jsonify(contact.serialize())
 
 @app.route('/delete_contact', methods=['GET', 'POST'])
 def delete_contact():
 
 	data =int(request.get_json())
-	cnt = db.session.query(Contact).filter(Contact.id == data).first()
+	contact = db.session.query(Contact).filter(Contact.id == data).first()
 	
-	if cnt:
+	if contact:
 		if request.method == 'POST':
-			db.session.delete(cnt)
+			db.session.delete(contact)
 			db.session.commit()
 
 	return jsonify(data=data)
