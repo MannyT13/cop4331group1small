@@ -44,17 +44,17 @@ $(document).ready(function(){
         });
     });
 
-    $('#lookup').on('click', function(event){
-        console.log($('#searchContact').value)
-        var contactArr = document.getElementsByClassName('my-data');
-        var size = contactArr.length;
-        for(var i=size-1; i >= 0; i--){
-            var first =contactArr[i].getAttribute("first");
-            var last =contactArr[i].getAttribute("last");
-            var input = $('#searchContact').val()
-            if (first != input) contactArr[i].remove()
-        }
-    });
+    $('#searchContact').on('input', function(event){
+        var input = $('#searchContact').val().toLowerCase()
+        $('.my-data').each(function(){
+            first = this.getAttribute('first').toLowerCase();
+            last = this.getAttribute('last').toLowerCase();
+            
+            str = first + " " + last;
+            if(str.indexOf(input) == -1) $(this).hide()
+            else $(this).show()
 
+        });
+    });
 
 });
