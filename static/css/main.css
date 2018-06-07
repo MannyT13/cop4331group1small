@@ -46,8 +46,13 @@ td.button {
 	cursor: pointer;
 }
 
-
-
 td.remove-button {
 	width: 5%;
+}
+
+.no-contacts {
+	margin: 0 auto;
+	width: 50%;
+	margin-top: 5%;
+	text-align: center;
 }

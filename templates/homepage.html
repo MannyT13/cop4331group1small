@@ -21,6 +21,20 @@
         </div>
       </div>
     </nav>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+         <ul class="flashes alert alert-success" role="alert">
+         {% for message in messages %}
+             <li>{{ message }}</li>
+         {% endfor %}
+         </ul>
+      {% endif %}
+      {% if not contacts %}
+          <ul class="flashes alert alert-primary" role="alert">
+            <li>No Contacts to display!</li>
+         </ul>
+       {% endif %}
+     {% endwith %}
 
     <div class="table-wrapper">
       <table class="table table-dark table-striped table-hover rounded">
