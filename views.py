@@ -129,9 +129,23 @@ def add_contact():
 							  request.form['zipcode'])
 		db.session.add(new_contact)
 		db.session.commit()
-		db.session.flush()
 
 	return jsonify(new_contact.serialize())
+
+@app.route('/update_contact', methods=['GET', 'POST'])
+def update_contact():
+	if request.method == 'POST':
+		contact = Contact.query.filter_by(id=request.form['id']).first()
+		contact.first_name = request.form['first_name']
+		contact.last_name = request.form['last_name']
+		contact.email_address = request.form['email']
+		contact.street_address1 = request.form['address1']
+		contact.street_address2 = request.form['address2']
+		contact.phone_number = request.form['phone']
+		contact.city = request.form['city']
+		contact.zipcode = request.form['zipcode']
+		db.session.commit()
+	return jsonify('success')
 
 @app.route('/delete_contact', methods=['GET', 'POST'])
 def delete_contact():
