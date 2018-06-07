@@ -189,14 +189,19 @@ def register():
 		# Check to see if username exists already
 		check_username = User.query.filter_by(username=request.form['username']).first()
 		if check_username is None:
-			# Create the new user
-			new_user = User(request.form['username'], request.form['password'])
+			if request.form['password'] == request.form['confirm_password']:
+				# Create the new user
+				new_user = User(request.form['username'], request.form['password'])
 
-			db.session.add(new_user)
-			db.session.commit()
-			session['logged_in_user'] = new_user.id
+				db.session.add(new_user)
+				db.session.commit()
+				session['logged_in_user'] = new_user.id
+				flash('Registration Successful!')
 
-			return redirect('/')
+				return redirect('/')
+			else:
+				flash('Passwords do not match!')
+				return redirect('register')
 		else:
 			flash('Username already exists')
 			return redirect('register')

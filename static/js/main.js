@@ -11,6 +11,7 @@ $(document).ready(function(){
 				' + data.phone + '</td><td>' + data.email + '</td><td><button type="button" class="btn btn-danger btn-sm remove-button" data-button="\
 				' + data.id + '"><span class="glyphicon glyphicon-remove" href="#"></span> Delete Contact </button></td></tr>';
                 $('tbody').append(new_contact);
+                $('ul.flashes').hide();
             }
         });
     });

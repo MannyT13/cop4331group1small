@@ -1,13 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
     <!--Nav bar with new user heading-->
-    <nav class="navbar navbar-dark bg-dark">
-        <span class="navbar-brand mb-0 h1">Create New User</span>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <span class="navbar-brand mb-0 h1">Create an Account</span>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('login') }}">Log In</a>
+          </li>
+        </ul>
+      </div>
     </nav>
      <!--Flashed messages -->
     {% with messages = get_flashed_messages() %}
       {% if messages %}
-         <ul class="flashes alert alert-dark" role="alert">
+         <ul class="flashes alert alert-danger" role="alert">
          {% for message in messages %}
              <li>{{ message }}</li>
          {% endfor %}
@@ -33,7 +44,7 @@
                 </div>
                 <div class="form-group">
                     <label for="inputPassword">Confirm Password</label>
-                    <input name="confirmPassword" type="password" class="form-control" id="confirmInputPassword" placeholder="Confirm Password" required="">
+                    <input name="confirm_password" type="password" class="form-control" id="confirmInputPassword" placeholder="Confirm Password" required="">
                 </div>
                 <button type="submit" class="btn btn-primary btn-sm">Create New User</button>
             </form>
