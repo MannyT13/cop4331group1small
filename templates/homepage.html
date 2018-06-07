@@ -2,7 +2,7 @@
 {% block content %} 
     <!--Nav bar with add contact heading heading -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <span class="navbar-brand mb-0 h1">Homepage</span>
+      <span class="navbar-brand mb-0 h1">Rolodex</span>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -31,20 +31,19 @@
               <th scope="col">Last</th>
               <th scope="col">Phone</th>
               <th scope="col">Email</th>
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
             <input type="hidden" value="@item.Id" id="groupId"/>
             {% for contact in contacts %}           
-              <tr class="my-data" first="{{contact.first_name}}" last="{{contact.last_name}}" data-toggle="modal" data-target="#contact_info{{contact.id}}"> 
-                <td>{{contact.first_name}}</td>
-                <td>{{contact.last_name}}</td>
-                <td>{{contact.phone_number}}</td>
-                <td>{{contact.email_address}}</td>
+              <tr class="my-data" first="{{contact.first_name}}" last="{{contact.last_name}}"> 
+                <td class="contact-info" data-toggle="modal" data-target="#contact_info{{contact.id}}">{{contact.first_name}}</td>
+                <td class="contact-info" data-toggle="modal" data-target="#contact_info{{contact.id}}">{{contact.last_name}}</td>
+                <td class="contact-info" data-toggle="modal" data-target="#contact_info{{contact.id}}">{{contact.phone_number}}</td>
+                <td class="contact-info" data-toggle="modal" data-target="#contact_info{{contact.id}}">{{contact.email_address}}</td>
                 <td> 
-                  <button class="remove-button" type="button" class="btn btn-default btn-sm" data-button="{{contact.id}}">
-                      <span class="glyphicon glyphicon-remove" href="#"></span> Remove 
-                  </button>
+                  <button type="button" class="btn btn-danger btn-sm remove-button" data-button="{{contact.id}}">Delete Contact</button>
                 </td>
               </tr>
               {% endfor %}
