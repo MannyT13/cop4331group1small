@@ -70,13 +70,16 @@ $(document).ready(function(){
         });
     });
 
-    $('#lookup').on('click', function(event){
-        var input = $('#searchContact').val()
+    $('#searchContact').on('input', function(event){
+        var input = $('#searchContact').val().toLowerCase()
         $('.my-data').each(function(){
-            first = this.getAttribute('first');
-            last = this.getAttribute('last');
-            if(first != input) $(this).hide()
+            first = this.getAttribute('first').toLowerCase();
+            last = this.getAttribute('last').toLowerCase();
+            
+            str = first + last;
+            if(first.indexOf(input) == -1) $(this).hide()
             else $(this).show()
+
         });
     });
 
