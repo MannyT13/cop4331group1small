@@ -27,30 +27,20 @@
       <table class="table table-dark rounded">
           <thead class="rounded">
             <tr>
-              <th scope="col">#</th>
               <th scope="col">First</th>
               <th scope="col">Last</th>
-              <th scope="col">Address 1</th>
-              <th scope="col">Address 2</th>
-              <th scope="col">Email</th>
               <th scope="col">Phone</th>
-              <th scope="col">City</th>
-              <th scope="col">Zip</th>
+              <th scope="col">Email</th>
             </tr>
           </thead>
           <tbody>
             <input type="hidden" value="@item.Id" id="groupId"/>
             {% for contact in contacts %}           
-              <tr class="my-data" first="{{contact.first_name}}" last="{{contact.last_name}}"> 
-                <th scope="row">{{loop.index}}</th>
+              <tr class="my-data" first="{{contact.first_name}}" last="{{contact.last_name}}" data-toggle="modal" data-target="#contact_info{{contact.id}}"> 
                 <td>{{contact.first_name}}</td>
                 <td>{{contact.last_name}}</td>
-                <td>{{contact.street_address1}}</td>
-                <td>{{contact.street_address2}}</td>
-                <td>{{contact.email_address}}</td>
                 <td>{{contact.phone_number}}</td>
-                <td>{{contact.city}}</td>
-                <td>{{contact.zip_code}}</td>
+                <td>{{contact.email_address}}</td>
                 <td> 
                   <button class="remove-button" type="button" class="btn btn-default btn-sm" data-button="{{contact.id}}">
                       <span class="glyphicon glyphicon-remove" href="#"></span> Remove 
@@ -117,31 +107,65 @@
     </div>
   </div>
 </div>
+
+{% for contact in contacts %}
+<div id="contact_info{{contact.id}}" class="modal hide" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Update Contact Information</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="update-contact-form" action="{{ url_for('update_contact') }}" method="post">
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="inputFirstName">First Name</label>
+                    <input name="first_name" type="name" class="form-control" id="firstName" placeholder="First Name" required="" value="{{contact.first_name}}">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputLastName">Last Name</label>
+                    <input name="last_name" type="name" class="form-control" id="lastName" placeholder="Last Name" required="" value="{{contact.last_name}}">
+                  </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input name="email"type="email" class="form-control" id="email" placeholder="Email" value="{{contact.email_address}}">
+                </div>
+                <div class="form-group">
+                  <label for="inputAddress">Address</label>
+                  <input name= "address1" type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" value="{{contact.street_address1}}">
+                </div>
+                <div class="form-group">
+                  <label for="inputAddress2">Address 2</label>
+                  <input name="address2" type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor" value="{{contact.street_address2}}">
+                </div>
+                <div class="form-group">
+                    <label for="inputPhone">Phone Number</label>
+                    <input name="phone" type="text" class="form-control" id="inputPhone" placeholder="XXX-XXX-XXXX" value="{{contact.phone_number}}">
+                  </div>
+                <div class="form-row">
+                  <div class="form-group col-md-9">
+                    <label for="inputCity">City</label>
+                    <input name="city" type="text" class="form-control" id="inputCity" value="{{contact.city}}">
+                  </div>
+                  
+                  <div class="form-group col-md-3">
+                    <label for="inputZip">Zip</label>
+                    <input name="zipcode" type="text" class="form-control" id="inputZip" value="{{contact.zip_code}}">
+                  </div>
+                </div>
+                <input name="id" type="hidden" value="{{contact.id}}">
+                <button type="submit" data-dismiss="modal" class="btn btn-primary update-contact-submit">Update Contact</button>
+                <button type="button" class="btn btn-alert" data-dismiss="modal">Cancel</button>
+          </form>
+       </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+
 {% endblock %}
-<!--
-    ******to grab inputs just use request.form('the name of the input grabbing')******
-
-     BACKEND: must worry about two things
-        1. navbar
-            a. logout
-            b. search
-        2. table/ using jinja for loop
-
-   1. Navbar: We must handle three things
-    a. logout ->  logs the user out and sends them back to login.html so,
-         return render_template('login.html')
-
-    b. search -> searches what is in input and then sends the info to search.html
-
-  
-  
-  
-    2. We are using a for loop for the table
-    a. get all results for the signed in user
-            contacts = contact.query.all() 
-
-    b.send the contacts to the template and let the for loop do the rest of the work
-             return render_template("homepage.html", contacts=contacts)
-   
-    
- -->
